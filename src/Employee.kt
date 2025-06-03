@@ -2,6 +2,7 @@
 import resources.StringRes
 import java.time.LocalDate
 import java.time.Period
+import java.time.Year
 import java.time.format.DateTimeFormatter
 
 open class Employee(
@@ -22,7 +23,7 @@ open class Employee(
     }
 
     open fun printPersonalCard() {
-        val age = calculateYearsFromStartDate(startDate = birthDate)
+         //
         val workYears = calculateYearsFromStartDate(startDate = hireDate)
         val formattedBirthDate = birthDate.format(formatter)
        /* when (language) {
@@ -35,11 +36,13 @@ open class Employee(
         println("$fullName $lastName $firstName ${middleName ?: ""}") // знак элвиса, если будет нал, то пусто
         val birthDate = StringRes.BIRTH_DATE.getString(language)
         println("$birthDate $formattedBirthDate")
-       /* val ageInLanguage = StringRes.AGE.getString(language)
-        val ageInLanguage = StringRes.AGE.getString (language = language).
-        println("$ageInLanguage")*/
+        val age = calculateYearsFromStartDate(startDate = this.birthDate)
+        println("${StringRes.AGE.getString(language)}: ${formatYears(years = age, language = language)}")
         val experience = StringRes.EXPERIENCE.getString(language)
-        println("$experience ${formatYears(years = workYears)}")
+        println("$experience ${formatYears(
+            years = workYears,
+            language = language,
+        )}")
         val profession = StringRes.JOB_TITLE.getString(language)
         println("$profession $jobTitle") // на каком языке должна быть профессия
 
@@ -67,11 +70,16 @@ open class Employee(
         return years
     }
 
-    private fun formatYears(years: Int): String {
-        return when {
-            years % 10 == 1 -> "$years год"
-            years % 10 in 2..4 -> "$years года"
-            else -> "$years лет"
+    private fun formatYears(years: Int, language: Language): String {
+        return "$years " + when (language) {
+            Language.RUSSIAN -> "лет" // TODO() доделать
+            Language.ENGLISH, Language.GERMAN -> {
+                if (years == 1) {
+                    StringRes.YEAR.getString(language)
+                } else {
+                    StringRes.YEARS.getString(language)
+                }
+            }
         }
     }
 

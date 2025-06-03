@@ -33,7 +33,10 @@ enum class StringRes {
     EXPERIENCE,
     JOB_TITLE,
     SALARY,
+    YEAR,
+    YEARS,
     NATIONALITY;
+
 
     fun getString(language: Language): String {
         return when (language) {
@@ -49,11 +52,13 @@ enum class StringRes {
             YOUR_PERSONAL_CARD -> "Ваша персональная карта: "
             FULL_NAME -> "Ф.И.О: "
             BIRTH_DATE -> "Дата рождения:"
-            AGE -> "Полных лет: "
+            AGE -> "Полных лет"
             EXPERIENCE -> "Опыт работы: "
             JOB_TITLE -> "Профессия: "
             SALARY -> "Зарплата: "
             NATIONALITY -> "Национальность: "
+            YEAR -> "год"
+            YEARS -> "лет"
         }
     }
 
@@ -63,11 +68,13 @@ enum class StringRes {
             YOUR_PERSONAL_CARD -> "Your personal card: "
             FULL_NAME ->  "Full name:"
             BIRTH_DATE -> "Birth date:"
-            AGE -> "Age: "
+            AGE -> "Age"
             EXPERIENCE -> "Experience: "
             JOB_TITLE -> "Profession: "
             SALARY -> "Salary: "
             NATIONALITY -> "Nationality: "
+            YEAR -> "year"
+            YEARS -> "years"
         }
     }
 
@@ -77,11 +84,13 @@ enum class StringRes {
             GREETING -> "Guten Tag"
             FULL_NAME -> "Vollständiger Name:"
             BIRTH_DATE -> "Geburtsdatum:"
-            AGE -> "Alter:"
+            AGE -> "Alter"
             EXPERIENCE -> "Erfahrung:"
             JOB_TITLE -> "Beruf:"
-            SALARY -> "Gehalt:"
-            NATIONALITY -> "Nationalität:"
+            SALARY -> "Gehalt"
+            NATIONALITY -> "Nationalität"
+            YEAR -> "Jahr"
+            YEARS -> "Jahre"
         }
     }
 }
