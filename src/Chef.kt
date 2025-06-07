@@ -1,3 +1,4 @@
+import resources.StringRes
 import java.time.LocalDate
 
 open class Chef(
@@ -8,12 +9,27 @@ open class Chef(
     override val birthDate: LocalDate,
     override val language: Language, //язык ("ru"/"en")
     override val hireDate: LocalDate, // дата приема на работу
-    override val jobTitle: String, // фирменное блюдо (опционально)
-    override val nationality: Nationality,
-    val signatureDish: String? = null,
-) : Employee(id, firstName, lastName, middleName, birthDate, language, hireDate, jobTitle, nationality,) {
+    override val jobTitle: String,
+    override val salary: Int,
+    override val value: Int,
+    val signatureDish: String? = null, // фирменное блюдо (опционально)
+) : Employee(
+    id,
+    firstName,
+    lastName,
+    middleName,
+    birthDate,
+    language,
+    hireDate,
+    jobTitle,
+    salary,
+    value,
+    ) {
+
     override fun printPersonalCard() {
         super.printPersonalCard()
-        println("Фирменное блюдо $signatureDish")
+        val dish = StringRes.SIGNATURE_DISH.getString(language)
+        println("$dish: ${signatureDish ?: ""}")
+
     }
 }

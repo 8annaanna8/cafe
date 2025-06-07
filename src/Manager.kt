@@ -9,6 +9,7 @@ class Manager(
     override val language: Language, //язык ("ru"/"en")
     override val hireDate: LocalDate, // дата приема на работу
     override val jobTitle: String,
-    override val nationality: Nationality,
-) : Employee (id, firstName, lastName, middleName, birthDate, language, hireDate, jobTitle, nationality) {
+    override val salary: Int,
+    override val value: Int,
+) : Employee (id, firstName, lastName, middleName, birthDate, language, hireDate, jobTitle, salary, value) {
 }

@@ -35,7 +35,8 @@ enum class StringRes {
     SALARY,
     YEAR,
     YEARS,
-    NATIONALITY;
+    CURRENCY,
+    SIGNATURE_DISH;
 
 
     fun getString(language: Language): String {
@@ -49,48 +50,51 @@ enum class StringRes {
     private fun russian(): String {
         return when (this) {
             GREETING -> "Привет"
-            YOUR_PERSONAL_CARD -> "Ваша персональная карта: "
-            FULL_NAME -> "Ф.И.О: "
-            BIRTH_DATE -> "Дата рождения:"
+            YOUR_PERSONAL_CARD -> "Ваша персональная карта"
+            FULL_NAME -> "Ф.И.О"
+            BIRTH_DATE -> "Дата рождения"
             AGE -> "Полных лет"
-            EXPERIENCE -> "Опыт работы: "
-            JOB_TITLE -> "Профессия: "
-            SALARY -> "Зарплата: "
-            NATIONALITY -> "Национальность: "
+            EXPERIENCE -> "Опыт работы"
+            JOB_TITLE -> "Профессия"
+            SALARY -> "Зарплата"
             YEAR -> "год"
             YEARS -> "лет"
+            CURRENCY -> ""
+            SIGNATURE_DISH -> "Фирменное блюдо"
         }
     }
 
     private fun english(): String {
         return when (this) {
             GREETING -> "Hello"
-            YOUR_PERSONAL_CARD -> "Your personal card: "
-            FULL_NAME ->  "Full name:"
-            BIRTH_DATE -> "Birth date:"
+            YOUR_PERSONAL_CARD -> "Your personal card"
+            FULL_NAME ->  "Full name"
+            BIRTH_DATE -> "Birth date"
             AGE -> "Age"
-            EXPERIENCE -> "Experience: "
-            JOB_TITLE -> "Profession: "
-            SALARY -> "Salary: "
-            NATIONALITY -> "Nationality: "
+            EXPERIENCE -> "Experience"
+            JOB_TITLE -> "Profession"
+            SALARY -> "Salary"
             YEAR -> "year"
             YEARS -> "years"
+            CURRENCY -> ""
+            SIGNATURE_DISH -> "Signature dish"
         }
     }
 
     private fun german(): String {
         return when (this) {
-            YOUR_PERSONAL_CARD -> "Ihre persönliche Karte:"
-            GREETING -> "Guten Tag"
-            FULL_NAME -> "Vollständiger Name:"
-            BIRTH_DATE -> "Geburtsdatum:"
+            YOUR_PERSONAL_CARD -> "Ihre persönliche Karte"
+            GREETING -> "Hallo"
+            FULL_NAME -> "Vollständiger Name"
+            BIRTH_DATE -> "Geburtsdatum"
             AGE -> "Alter"
-            EXPERIENCE -> "Erfahrung:"
-            JOB_TITLE -> "Beruf:"
+            EXPERIENCE -> "Erfahrung"
+            JOB_TITLE -> "Beruf"
             SALARY -> "Gehalt"
-            NATIONALITY -> "Nationalität"
             YEAR -> "Jahr"
             YEARS -> "Jahre"
+            CURRENCY -> ""
+            SIGNATURE_DISH -> "Spezialgericht"
         }
     }
 }

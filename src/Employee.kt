@@ -2,8 +2,8 @@
 import resources.StringRes
 import java.time.LocalDate
 import java.time.Period
-import java.time.Year
 import java.time.format.DateTimeFormatter
+import kotlin.coroutines.cancellation.CancellationException
 
 open class Employee(
     open val id: Int,
@@ -14,13 +14,15 @@ open class Employee(
     open val language: Language, //язык ("ru"/"en")
     open val hireDate: LocalDate, // дата приема на работу
     open val jobTitle: String,
-    open val nationality : Nationality,
+    open val salary: Int,
+    open val value: Int,
 ) {
 
-    private val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
     open fun greet(firstName: String) {
         println("${StringRes.GREETING.getString(language = language)}, $firstName!")
     }
+
+    private val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
 
     open fun printPersonalCard() {
          //
@@ -31,38 +33,43 @@ open class Employee(
             Language.ENGLISH -> println(StringRes.YOUR_PERSONAL_CARD.english)
         }*/
         val yourPersonalCard = StringRes.YOUR_PERSONAL_CARD.getString(language = language)
-        println(yourPersonalCard)
+        println("$yourPersonalCard:")
+
         val fullName = StringRes.FULL_NAME.getString(language = language)
-        println("$fullName $lastName $firstName ${middleName ?: ""}") // знак элвиса, если будет нал, то пусто
+        println("$fullName: $lastName $firstName ${middleName ?: ""}") // знак элвиса, если будет нал, то пусто
+
+
         val birthDate = StringRes.BIRTH_DATE.getString(language)
-        println("$birthDate $formattedBirthDate")
+        println("$birthDate: $formattedBirthDate")
+
         val age = calculateYearsFromStartDate(startDate = this.birthDate)
         println("${StringRes.AGE.getString(language)}: ${formatYears(years = age, language = language)}")
+
         val experience = StringRes.EXPERIENCE.getString(language)
-        println("$experience ${formatYears(
+        println("$experience: ${formatYears(
             years = workYears,
             language = language,
         )}")
-        val profession = StringRes.JOB_TITLE.getString(language)
-        println("$profession $jobTitle") // на каком языке должна быть профессия
 
-        val salary = Salary(value = 200, currency = "ru")
+        val profession = StringRes.JOB_TITLE.getString(language)
+        println("$profession: $jobTitle")
+
+        val salary = Salary(value = value, currency = "ru")
             .calculate(workYears = workYears)
-        val rubCurrencyEnding = getRubCurrencyEnding(amount = 0)
-        println("Зарплата: $salary")
-        val nationality = definitionNationality(nationality)
-        println("Национальность: $nationality")
+
+        val currency = StringRes.CURRENCY.getString(language)
+        println("${StringRes.SALARY.getString(language)}: $salary " +
+                formatCurrency(
+                    currency = currency,
+                    salary = salary,
+                    language = language,
+                )
+        )
+
     }
 
-/*    private fun definitionOfNationality(nationality: Nationality): String {
-        return when(nationality) {
-            Nationality.RUSSIAN -> "Русский"
-            Nationality.ENGLISH -> "Englishman"
-            Nationality.GERMAN -> "German"
-        }
-    }*/
     private fun calculateYearsFromStartDate(
-        startDate: LocalDate, // как узнает дату найма?
+        startDate: LocalDate,
         endDate: LocalDate = LocalDate.now() //дефолтное значение
     ): Int {
         val period = Period.between(startDate, endDate)
@@ -72,7 +79,12 @@ open class Employee(
 
     private fun formatYears(years: Int, language: Language): String {
         return "$years " + when (language) {
-            Language.RUSSIAN -> "лет" // TODO() доделать
+            Language.RUSSIAN ->
+                when {
+                years % 10 == 1 && years % 100 != 11 -> "год"
+                years % 10 in 2..4 && years % 100 !in 12..14 -> "года"
+                else -> "лет"
+                }
             Language.ENGLISH, Language.GERMAN -> {
                 if (years == 1) {
                     StringRes.YEAR.getString(language)
@@ -83,6 +95,25 @@ open class Employee(
         }
     }
 
+    private fun formatCurrency(salary: Int, currency: String, language: Language): String {
+        return currency + when (language) {
+            Language.RUSSIAN -> getRubCurrencyEnding(amount = salary)
+            Language.ENGLISH -> {
+                if (salary == 1) {
+                    "dollar"
+                } else {
+                    "dollars"
+                }
+            }
+            Language.GERMAN -> {
+                if (salary == 1) {
+                    "euro"
+                } else {
+                    "euros"
+                }
+            }
+        }
+    }
 }
 
 
